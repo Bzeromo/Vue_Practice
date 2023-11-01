@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <button @click="count++">증가</button>
+    <p>{{count}}</p>
+    <p>{{message}}</p>
+  </div>
+  <script>
+    const { createApp, ref, onMounted, onUpdated } = Vue;
+
+    const app = createApp({
+      setup() {
+        const count = ref(0);
+        const message = ref(null);
+        //이미지 API 요청 메서드 생성 후
+
+        //1. Vue 컴포넌트 인스턴스가 초기 렌더링 및 DOM 요소 생성이 완료된 후 특정 로직을 수행하기
+        onMounted(() => {
+          //이미지 호출 API 메서드 호출
+          console.log("연결 완료")
+        });
+
+        //▪ 2. 반응형 데이터의 변경으로 인해 컴포넌트의 DOM이 업데이트된 후 특정 로직 수행하기
+        onUpdated(() => {
+          message.value = "update";
+          console.log("update");
+        });
+
+        return {
+          count,
+          message,
+        };
+      },
+    });
+    app.mount("#app");
+  </script>
+</body>
+
+</html>

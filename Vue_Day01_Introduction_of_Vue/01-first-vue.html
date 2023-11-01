@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>FirstVueApp</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <h1>{{ message }}</h1>
+      <button @click="count++">Count is: {{ count }}</button>
+    </div>
+    <script>
+      const { createApp, ref } = Vue;
+
+      const app = createApp({
+        setup() {
+          const message = ref("Hello vue!");
+          const count = ref(0);
+
+          return {
+            message,
+            count,
+          };
+        },
+      });
+
+      app.mount("#app");
+    </script>
+  </body>
+</html>

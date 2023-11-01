@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h3>완료된 일</h3>
+    <ul>
+      <li v-for="todo in completeTodos" :key="todo.id">
+        {{todo.name}}
+      </li>
+    </ul>
+    <hr>
+    <h3>미완료된 일</h3>
+    <ul>
+      <!-- 2. template을 통해 for와 if의 순서를 바꿔 우선순위 영향 안받게 하기 -->
+      <template v-for="todo in todos" :key="todo.id">
+        <li v-if="!todo.isComplete">
+          {{todo.name}}
+        </li>
+      </template>
+    </ul>
+  </div>
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    const app = createApp({
+      setup() {
+        let id = 0;
+
+        const todos = ref([
+          { id: id++, name: "복습", isComplete: true },
+          { id: id++, name: "예습", isComplete: false },
+          { id: id++, name: "저녁식사", isComplete: true },
+          { id: id++, name: "노래방", isComplete: false },
+        ]);
+
+        //1. computed를 통해 미리 필터링 후 보내기
+        const completeTodos = computed(() => {
+          return todos.value.filter((todo) => {
+            return todo.isComplete;
+          })
+        })
+
+        return {
+          todos,
+          completeTodos,
+        };
+      },
+    });
+    app.mount("#app");
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 1. CDN 추가 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- 6. 꺼내어 사용할 때는 .value가 필요 없다. -->
+      <p>{{message}}</p>
+      <!-- 자바스크립트 표현식도 사용 가능 -->
+      <p>{{message.split('').reverse().join('')}}</p>
+    </div>
+    <script>
+      const { createApp, ref } = Vue; //구조 분해 할당
+      //2. Application Instance 생성
+
+      const app = createApp ({
+        setup() {
+          const message = ref("Hello Vue!"); //4. 변수 사용을 위해 ref메서드로 감싸서 초기화
+          console.log(message);
+          console.log(message.value);
+
+          //5. 템플릿에서 사용하기 위해 반환 -> 객체 타입으로 반환
+          return {
+            message,
+          };
+        },
+
+      });
+
+      // 3. dom 연결(mount)
+      app.mount("#app");
+    </script>
+  </body>
+</html>

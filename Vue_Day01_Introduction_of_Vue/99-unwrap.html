@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>{{ object.id + 1 }}</div>
+      <div>{{ object["id"] + 1 }}</div>
+      <div>{{ object.id }}</div>
+      <div>{{ object.id.value }}</div>
+      <div>{{ object.id.value + 1 }}</div>
+      <div>{{ object["id"] }}</div>
+      <div>{{id}}</div>
+      <div>{{id+1}}</div>
+    </div>
+    <script>
+      const { createApp, ref } = Vue;
+
+      const app = createApp ({
+        setup() {
+          const object = { id: ref(0) }; 
+        
+          const { id } = object;
+
+          return {
+            object,
+            id,
+          };
+        },
+
+      });
+
+      // 3. dom 연결(mount)
+      app.mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!-- 순서를 일관되게 유지(객체에 유니크함을 부여)하기 위해 id를 key에 바인딩하여 사용 (정석) -->
+    <!-- 인덱스는 데이터를 넣고 뺌에 따라 변할 수 있기 때문에 키로 사용할 수 없다! -->
+    <div v-for="item in items" :key="item.id">
+      {{item.name}}
+    </div>
+  </div>
+  <script>
+    const { createApp, ref } = Vue;
+
+    const app = createApp({
+      setup() {
+        let id = 0;
+
+        const items = ref([
+          { id: id++, name: "Alice" },
+          { id: id++, name: "Bella" },
+        ]);
+
+        return {
+          items,
+        };
+      },
+    });
+    app.mount("#app");
+  </script>
+</body>
+
+</html>

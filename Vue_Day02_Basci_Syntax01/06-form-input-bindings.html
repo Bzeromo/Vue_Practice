@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="text" @input="onInput"/>
+      <p>{{inputText1}}</p>
+      <hr>
+      <input type="text" v-model="inputText2"/>
+      <p>{{inputText2}}</p>
+    </div>
+    <script>
+      const { createApp, ref } = Vue;
+
+      const app = createApp({
+        setup() {
+          const inputText1 = ref("");
+          const inputText2 = ref("");
+          
+          const onInput = () => {
+            inputText1.value = event.currentTarget.value;
+          };
+
+          return {
+            inputText1,
+            inputText2,
+            onInput,
+          }
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <img :src="imageSrc" />
+      <a :href="myUrl">MyUrl 이동</a>
+      <p :[dynamicattr]="dynamicValue">...</p>
+    </div>
+    <script>
+      const { createApp, ref } = Vue;
+
+      const app = createApp({
+        setup() {
+          const imageSrc = ref("https://picsum.photos/200");
+          const myUrl = ref("https://www.google.com");
+          const dynamicattr = ref('title');
+          const dynamicValue = ref('Hello Vue.js');
+
+          return {
+            imageSrc,
+            myUrl,
+            dynamicattr,
+            dynamicValue,
+
+          };
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Vue</title>
+    <style>
+      .active {
+        color: crimson;
+      }
+
+      .text-primary {
+        color: blue;
+      }
+    </style>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <div :class="{active: isActive}">글자색</div>
+      <div class="static" :class="{active: isActive, 'text-primary': hasInfo}">글자색</div>
+      <div :class="classObj">글자색</div>
+      <div :class="[activeClass, infoClass]">글자색</div>
+      <div :class="[{active: isActive}, infoClass]">글자색</div>
+    </div>
+    <script>
+      const { createApp, ref } = Vue;
+
+      const app = createApp({
+        setup() {
+          const isActive = ref(false);
+          const hasInfo = ref(true);
+
+          //ref는 반응 객체의 속성으로 액세스되거나 변경될 때 자동으로 unwrap
+          const classObj = ref({
+            active: isActive,
+            'text-primary': hasInfo,
+          });
+
+          const activeClass = ref('active');
+          const infoClass = ref('text-primary');
+
+          return {
+            isActive,
+            hasInfo,
+            classObj,
+            activeClass,
+            infoClass,
+          };
+        },
+      });
+      app.mount("#app");
+    </script>
+  </body>
+</html>

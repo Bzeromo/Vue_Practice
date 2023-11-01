@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <!--1. 감시하는 변수에 변화가 생겼을 때 기본 동작 확인하기-->
+    <p>{{count}}</p>
+    <button @click="count++">증가</button>
+    <hr>
+    <!--2. 감시하는 변수에 변화가 생겼을 때 연관 데이터 업데이트 하기
+-->
+    <input type="text" v-model="message" />
+    <p>{{messageLength}}</p>
+  </div>
+  <script>
+    const { createApp, ref, watch } = Vue;
+
+    const app = createApp({
+      setup() {
+        const count = ref(0);
+        const message = ref('');
+        const messageLength = ref(0);
+        //첫번째 인자: 감시할 대상, 두번째 인자: 콜백함수(변화한 값, 변화 전 값)
+        const countWatch = watch(count, (newValue, oldValue) => {
+          console.log(`new : ${newValue} / old: ${oldValue}`);
+        });
+
+        const messageWatch = watch(message, (newValue, oldValue) => {
+          messageLength.value = newValue.length;
+        })
+
+        //watch는 반환하지 않아도 괜찮다
+        return {
+          count,
+          message,
+          messageLength,
+        };
+      },
+    });
+    app.mount("#app");
+  </script>
+</body>
+
+</html>

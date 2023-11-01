@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+  </head>
+  <body>
+    <div id="app">
+      <div>반응형 변수: {{ reactiveValue }}</div>
+      <div>일반 변수: {{ normalValue }}</div>
+      <button @click="updateValues">값 업데이트</button>
+    </div>
+    <script>
+      const { createApp, ref } = Vue;
+
+      const app = createApp ({
+        setup() {
+          const reactiveValue = ref(0); //반응형 변수
+          const normalValue = 0; //그냥 변수
+
+          const updateValues = () => {
+            reactiveValue.value++;
+            normalValue++;
+          }
+
+          return {
+            reactiveValue,
+            normalValue,
+            updateValues,
+          };
+        },
+
+      });
+
+      // 3. dom 연결(mount)
+      app.mount("#app");
+    </script>
+  </body>
+</html>

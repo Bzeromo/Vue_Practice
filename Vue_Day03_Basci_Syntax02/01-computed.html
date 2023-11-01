@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <h2>남은 할일</h2>
+    <p>{{todos.length > 0 ? '아직 남았다' : '퇴근!'}}</p>
+    <hr>
+    <h2>계산된 속성</h2>
+    <p>{{restOfTodos}}</p>
+    <hr>
+    <h2>메서드 호출</h2>
+    <p>{{getRestOfTodos()}}</p>
+  </div>
+  <script>
+    const { createApp, ref, computed } = Vue;
+
+    const app = createApp({
+      setup() {
+        const todos = ref([
+          { text: 'Vue 공부' },
+          { text: 'Vue 실습' },
+          { text: 'Spring 복습' },
+        ]);
+
+        const restOfTodos = computed(() => {
+          console.log("computed")
+          return todos.value.length > 0 ? '아직 많이 남았다' : '퇴근해 이제...';
+        });
+
+        const getRestOfTodos = () => {
+          console.log("method")
+          return todos.value.length > 0 ? '넌 퇴근 못한다니까' : '퇴근하라고.......';
+        };
+
+        return {
+          todos,
+          restOfTodos,
+          getRestOfTodos,
+        };
+      },
+    });
+    app.mount("#app");
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Vue</title>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+
+<body>
+  <div id="app">
+    <div v-for="p in myArr">
+      {{p.name}} / {{p.age}}
+    </div>
+    <hr>
+    <!-- p, index 순서가 매우 중요! -->
+    <div v-for="(p, index) in myArr">
+      {{index}} : {{p.name}} / {{p.age}}
+    </div>
+    <hr>
+    <div v-for="value in myObj">
+      {{value}}
+    </div>
+    <hr>
+    <div v-for="(value, key) in myObj">
+      {{key}} : {{value}}
+    </div>
+    <hr>
+    <!-- 객체에서 값, 키, 인덱스 순 -->
+    <div v-for="(value, key, index) in myObj">
+      {{index}} - {{key}} : {{value}}
+    </div>
+    <hr>
+    <!-- 템플릿으로 여러 요소 for 적용 -->
+    <ul>
+      <template v-for="item in myArr">
+        <li>{{item.name}}</li>
+        <li>{{item.age}}</li>
+      </template>
+    </ul>
+    <hr>
+    <!-- 중첩된 for문 -->
+    <ul v-for="item in myInfo">
+      <li v-for="friend in item.friends">
+        {{item.name}}는 {{friend}}와 친구라고 생각합니다.
+      </li>
+    </ul>
+    <hr>
+
+  </div>
+  <script>
+    const { createApp, ref } = Vue;
+
+    const app = createApp({
+      setup() {
+        const myArr = ref([
+          { name: "Alice", age: 20 },
+          { name: "Bella", age: 21 },
+        ]);
+        const myObj = ref({
+          name: "Cathy",
+          age: 30,
+        });
+
+        // nested v-for
+        const myInfo = ref([
+          { name: "Alice", age: 20, friends: ["Bella", "Cathy", "Dan"] },
+          { name: "Bella", age: 21, friends: ["Alice", "Cathy"] },
+        ]);
+
+        return {
+          myArr,
+          myObj,
+          myInfo,
+        };
+      },
+    });
+    app.mount("#app");
+  </script>
+</body>
+
+</html>
