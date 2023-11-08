@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Vue</title>
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <button @click="getCat">냥냥펀치1(Fetch)</button>
+        <button @click="getCat2">냥냥펀치2(Axios)</button>
+        <hr>
+        <img :src="catImageSrc" />
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted } = Vue
+        const URL = 'https://api.thecatapi.com/v1/images/search'
+
+        const app = createApp({
+            setup() {
+                const catImageSrc = ref('')
+
+                const getCat = function () {
+                    fetch(URL)
+                        .then((response) => response.json())
+                        .then((imgData) => {
+                            catImageSrc.value = imgData[0].url
+                        })
+                        .catch((error) => {
+                            console.log("실패했다")
+                        })
+                }
+
+                const getCat2 = function () {
+                    axios({
+                        url: URL,
+                        method: 'GET'
+                    })
+                        .then((response) => {
+                            catImageSrc.value = response.data[0].url
+                        })
+                        .catch((error) => {
+                            console.log("실패했다")
+                        })
+                }
+
+                onMounted(() => {
+                    getCat2()
+                })
+
+                return { catImageSrc, getCat, getCat2 }
+            }
+        })
+
+        app.mount('#app')
+
+    </script>
+</body>
+
+</html>

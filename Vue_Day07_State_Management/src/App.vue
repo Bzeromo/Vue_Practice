@@ -1,6 +1,7 @@
 <template>
   <div>
     <h2>Todo PJT</h2>
+    <!--doneTodosCount getter를 참조-->
     <p>완료한 Todo 개수: {{ store.doneTodoCount }}</p>
     <TodoForm />
     <TodoList />
