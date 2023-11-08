@@ -1,4 +1,4 @@
-import { ref, computed } from 'vue'
+import { ref } from 'vue'
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
@@ -8,7 +8,7 @@ export const useYoutubeStore = defineStore('youtube', () => {
 
   const youtubeSearch = (keyword) => {
     const URL = 'https://www.googleapis.com/youtube/v3/search';
-    const API_KEY = 'AIzaSyDIF2eLX6ppn42t089iKrNVknmpGMsVWls';
+    const API_KEY = '당신의 API KEY';
     
     axios({
       url: URL,
