@@ -17,6 +17,6 @@ import { RouterView } from "vue-router";
 }
 
 .my-underline {
-  background: linear-gradient(to top, #54ddff 20%, transparent 30%);
+  background: linear-gradient(to top, #54ddfe 20%, transparent 30%);
 }
 </style>
