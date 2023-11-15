@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ssafy.board.model.dao.BoardDao">
+	<resultMap type="Board" id="boardMap">
+		<result column="view_cnt" property="viewCnt"/>
+		<result column="reg_date" property="regDate"/>
+	</resultMap>
+
+	<select id="selectOne" resultMap="boardMap" parameterType="int">
+		SELECT *
+		FROM board
+		WHERE id = #{id};
+	</select>
+
+	<insert id="insertBoard" parameterType="Board" keyProperty="id" useGeneratedKeys="true">
+		INSERT INTO board (title, writer, content)
+		VALUES (#{title}, #{writer}, #{content})
+	</insert>
+	
+	<delete id="deleteBoard" parameterType="int">
+		DELETE FROM board
+		WHERE id = #{id}
+	</delete>
+	
+	<update id="updateViewCnt" parameterType="int">
+		UPDATE board
+		SET view_cnt = view_cnt+1
+		WHERE id = #{id}
+	</update>
+	
+	<update id="updateBoard" parameterType="board">
+		UPDATE board
+		SET title = #{title}, content = #{content}
+		WHERE id = #{id}
+	</update>
+	
+	<!-- 검색기능  -->
+	<select id="search" resultType="Board" parameterType="SearchCondition">
+		SELECT id, content, writer, title, view_cnt as viewCnt, date_format(reg_date, '%Y-%M-%d') as regDate
+		FROM board
+		<!-- 검색 조건 (동적쿼리)-->
+		<if test="key != 'none'">
+			WHERE ${key} LIKE concat('%', #{word}, '%')
+		</if>
+		<!-- 어떤 기준으로 어떤 방향으로 정렬 -->
+		<if test="orderBy != 'none'">
+			ORDER BY ${orderBy} ${orderByDir}
+		</if>
+	</select>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
+
+
+
+</mapper>
